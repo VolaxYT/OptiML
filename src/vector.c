@@ -27,8 +27,27 @@ static vec_t* vec_alloc(size_t size) {
     return vec;
 }
 
+vec_t* vec_create(const size_t size, const float* values){
+    vec_t* vec = vec_alloc(size);
+    if (!vec) return NULL;
 
-vec_t* add(const vec_t* vec1, const vec_t* vec2){
+    for (size_t i = 0; i < size; i++) {
+        vec->data[i] = values[i];
+    }
+    return vec;
+}
+
+vec_t* vec_zeros(const size_t size){
+    vec_t* vec = vec_alloc(size);
+    if (!vec) return NULL;
+
+    for (size_t i = 0; i < size; i++) {
+        vec->data[i] = 0;
+    }
+    return vec;
+}
+
+vec_t* vec_add(const vec_t* vec1, const vec_t* vec2){
     if(vec1-> size != vec2->size){
         fprintf(stderr, "Error : vec1 and vec2 not the same size.\n");
         return NULL;
@@ -43,7 +62,7 @@ vec_t* add(const vec_t* vec1, const vec_t* vec2){
     return vec;
 }
 
-vec_t* sub(const vec_t* vec1, const vec_t* vec2){
+vec_t* vec_sub(const vec_t* vec1, const vec_t* vec2){
     if(vec1-> size != vec2->size){
         fprintf(stderr, "Error : vec1 and vec2 not the same size.\n");
         return NULL;
@@ -58,7 +77,7 @@ vec_t* sub(const vec_t* vec1, const vec_t* vec2){
     return vec;
 }
 
-vec_t* scale(const vec_t* vec, float scalar){
+vec_t* vec_scale(const vec_t* vec, float scalar){
     vec_t* result = vec_alloc(vec->size);
     if(!vec) return NULL;
 
@@ -68,7 +87,7 @@ vec_t* scale(const vec_t* vec, float scalar){
     return result;
 }
 
-float dot(const vec_t* vec1, const vec_t* vec2){
+float vec_dot(const vec_t* vec1, const vec_t* vec2){
     if(vec1-> size != vec2->size){
         fprintf(stderr, "Error : vec1 and vec2 not the same size.\n");
         return NAN;
@@ -81,7 +100,7 @@ float dot(const vec_t* vec1, const vec_t* vec2){
     return result;
 }
 
-float norm_l1(const vec_t* vec){
+float vec_norm_l1(const vec_t* vec){
     float sum = 0;
     for(size_t i = 0; i < vec->size;i++){
         sum += fabsf(vec->data[i]);
@@ -89,8 +108,8 @@ float norm_l1(const vec_t* vec){
     return sum;
 }
 
-float norm_l2(const vec_t* vec){
-    return sqrtf(dot(vec,vec));
+float vec_norm_l2(const vec_t* vec){
+    return sqrtf(vec_dot(vec,vec));
 }
 
 void vec_free(vec_t* vec) {
