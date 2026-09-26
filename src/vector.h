@@ -8,8 +8,10 @@ typedef struct{
     float* data;
 } vec_t;
 
+vec_t* vec_random(size_t size);
 vec_t* vec_create(const size_t size, const float* values);
 vec_t* vec_zeros(const size_t size);
+vec_t* vec_ones(const size_t size);
 vec_t* vec_add(const vec_t* vec1, const vec_t* vec2);
 vec_t* vec_sub(const vec_t* vec1, const vec_t* vec2);
 vec_t* vec_scale(const vec_t* vec, float scalar);
