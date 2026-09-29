@@ -5,6 +5,11 @@
 #include <immintrin.h>
 #include <string.h>
 
+struct vec_t {
+    size_t size;
+    float* data;
+};
+
 static float* alloc_aligned_floats(size_t n) {
     float* ptr;
     if (posix_memalign((void**)&ptr, 32, n * sizeof(float)) != 0) {
@@ -99,6 +104,10 @@ vec_t* vec_scale(const vec_t* vec, float scalar){
         result->data[i] = vec->data[i] * scalar;
     }
     return result;
+}
+
+float vec_get(const vec_t* vec, size_t index) {
+    return vec->size >= index ? NAN : vec->data[index];
 }
 
 float vec_dot(const vec_t* vec1, const vec_t* vec2){

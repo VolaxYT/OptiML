@@ -1,5 +1,5 @@
-CFLAGS = -Wall -Wextra -Wno-unused-parameter -Werror -g -fsanitize=address
-BENCH_CFLAGS = -O3 -march=native -Wall -Wextra 
+CFLAGS = -Wall -Wextra -Wno-unused-parameter -Werror -g -fsanitize=address -mavx2 -mfma
+BENCH_CFLAGS = -O3 -mavx2 -mfma -Wall -Wextra 
 
 all : run
 
