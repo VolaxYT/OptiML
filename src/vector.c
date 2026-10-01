@@ -143,7 +143,8 @@ void vec_set(vec_t* vec, size_t index, float value) {
 
 size_t vec_size(const vec_t* vec){
     if (!vec) {
-        return NAN;
+        fprintf(stderr, "Error : vec is NULL pointer.\n");
+        return 0;
     }
     return vec->size;
 }
@@ -215,7 +216,7 @@ float vec_norm_l2(const vec_t* vec){
 void vec_free(vec_t* vec) {
     if(!vec){
         fprintf(stderr, "Error : vec is NULL pointer.\n");
-        return NAN;
+        return;
     }
 
     free(vec->data);
