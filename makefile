@@ -25,11 +25,17 @@ run : main.exe
 
 # --- build benchmark ---
 
+memory_bench.o : src/memory.c src/memory.h
+	gcc src/memory.c -c $(BENCH_CFLAGS) -o memory_bench.o
+
 vector_bench.o : src/vector.c src/vector.h
 	gcc src/vector.c -c $(BENCH_CFLAGS) -o vector_bench.o
 
-benchmark.exe : src/benchmark/benchmark.c vector_bench.o
-	gcc src/benchmark/benchmark.c vector_bench.o $(BENCH_CFLAGS) -o benchmark.exe -lm
+matrix_bench.o : src/matrix.c src/matrix.h
+	gcc src/matrix.c -c $(BENCH_CFLAGS) -o matrix_bench.o
+
+benchmark.exe : src/benchmark/benchmark.c vector_bench.o matrix_bench.o memory_bench.o
+	gcc src/benchmark/benchmark.c vector_bench.o matrix_bench.o memory_bench.o $(BENCH_CFLAGS) -o benchmark.exe -lm
 
 bench: benchmark.exe
 	./benchmark.exe
